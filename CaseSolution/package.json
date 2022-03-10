@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "devextreme": "^21.2.6",
+    "devextreme-aspnet-data": "^2.8.6"
+  }
+}

@@ -1,0 +1,130 @@
+﻿@model CaseSolution.Models.OrderDateRequestDTO 
+
+
+<input type="hidden" id="startDate" value="@Model.startDate" />
+<input type="hidden" id="endDate" value="@Model.endDate" />
+
+<div id="gird">
+
+</div>
+
+
+
+@section Scripts{
+    
+    
+    <script src="~/node/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
+    <script>
+
+     var dateStartVal = $("#startDate").val();
+     var dateEndVal = $("#endDate").val();
+     var DataVal = [];
+
+     console.log(dateStartVal);
+     console.log(dateEndVal);
+
+     $.get( "../../../Order/GetOrder/", { dateStart: dateStartVal, dateFinish: dateEndVal } )
+         .done(function( data ) {
+            DataVal = data;
+            console.log(DataVal)
+            $(() => {
+  $('#gird').dxDataGrid({
+    dataSource: DataVal,
+    keyExpr: 'siraNO',
+    columns: [{
+        dataField: 'siraNO',
+        caption: 'Sıra Numarası',
+        dataType: 'number'
+      },{
+        dataField: 'islemTur',
+         caption: 'İşlem Türü',
+        dataType: 'string',
+      },{
+        dataField: 'evrakNo',
+        caption: 'Evrak Numarası',
+         dataType: 'string',
+      },{
+        dataField: 'tarih',
+        caption: 'Tarih',
+        dataType: 'datetime',
+        format: 'yyyy/MM/dd HH:mm:ss'
+      },{
+         caption: 'Giriş Miktarı',
+         dataField: 'girisMiktar',
+         dataType: 'number',
+      },{
+         caption: 'Çıkış Miktarı',
+         dataField: 'cikisMiktar',
+         dataType: 'number',
+      },{
+         caption: 'Stok Miktarı',
+         dataField: 'stokMiktar',
+         dataType: 'number',
+      }
+    ],
+    showBorders: true,
+  });
+  //this.dataGridView.Columns["Priority"].SortMode =
+  //  DataGridViewColumnSortMode.Automatic;
+        });
+
+
+    
+});
+
+   //  $('#grid').dxDataGrid({
+   // dataSource: DevExpress.data.AspNet.createStore({
+   //   key: 'SiraNO',
+   //    loadUrl: "../../../Order/GetOrder/?dateStart="+`${dateStart}` +"&dateFinish="+`${dateEnd}`;
+   // }),
+   // columns: [{
+   //     dataField: 'SiraNO',
+   //     caption: 'SiraNO',
+   //     dataType: 'number'
+   //   },{
+   //     dataField: 'IslemTur',
+   //      caption: 'IslemTur',
+   //     dataType: 'string',
+   //   },{
+   //     dataField: 'EvrakNo',
+   //     caption: 'EvrakNo',
+   //      dataType: 'string',
+   //   },{
+   //     dataField: 'Tarih',
+   //     caption: 'Tarih',
+   //     dataType: 'datetime',
+   //     format: 'yyyy/MM/dd HH:mm:ss'
+   //   },{
+   //      caption: 'GirisMiktar',
+   //      dataField: 'GirisMiktar',
+   //      dataType: 'number',
+   //   },{
+   //      caption: 'CikisMiktar',
+   //      dataField: 'CikisMiktar',
+   //      dataType: 'number',
+   //   },{
+   //      caption: 'StokMiktar',
+   //      dataField: 'StokMiktar',
+   //      dataType: 'number',
+   //   }
+   // ],
+   // filterRow: {
+   //   visible: true,
+   // },
+   // headerFilter: {
+   //   visible: true,
+   // },
+   // groupPanel: {
+   //   visible: true,
+   // },
+   // scrolling: {
+   //   mode: 'virtual',
+   // },
+   // height: 600,
+   // showBorders: true,
+   // grouping: {
+   //   autoExpandAll: false,
+   // }
+   //});
+    </script>
+}
